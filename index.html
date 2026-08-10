@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d8f3ff">
+  <meta name="description" content="A dreamy birthday surprise created by Dhruv for Kashish.">
+  <title>For Kashish ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="site-shell" id="siteShell">
+    <div class="sky" aria-hidden="true">
+      <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="orb orb-c"></div>
+      <div class="cloud cloud-a"></div><div class="cloud cloud-b"></div><div class="cloud cloud-c"></div>
+      <div class="stars" id="stars"></div>
+      <div class="particles" id="particles"></div>
+      <div class="rays"></div>
+      <div class="aurora aurora-a"></div><div class="aurora aurora-b"></div>
+      <div class="moon-glow"></div>
+      <div class="heart-field" id="heartField"></div>
+      <div class="grain"></div>
+    </div>
+
+    <header class="topbar">
+      <div class="brand-mark" aria-label="A surprise for Kashish">for you <span>✦</span></div>
+      <button class="icon-button music-toggle" id="musicToggle" type="button" aria-label="Toggle music" aria-pressed="false">
+        <span class="music-icon">♪</span><span class="music-label">Music</span>
+      </button>
+    </header>
+
+    <main class="experience" id="experience">
+      <section class="scene is-active" data-scene="welcome" aria-labelledby="welcomeTitle">
+        <div class="scene-inner hero-copy">
+          <p class="eyebrow reveal">13 · 08 · 2026</p>
+          <h1 id="welcomeTitle" class="display reveal delay-1">Hey Kashish... <span>✦</span></h1>
+          <p class="lead reveal delay-2">Today is a little different.</p>
+          <button class="primary-button reveal delay-3" data-next="birthday" type="button">Open Your Surprise <span>↗</span></button>
+          <p class="microcopy reveal delay-4">take your time · there’s no rush</p>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="birthday" aria-labelledby="birthdayTitle">
+        <div class="scene-inner narrow">
+          <p class="eyebrow">a little birthday note</p>
+          <h2 id="birthdayTitle" class="title">Happy Birthday, Kashish! <span>🎂</span></h2>
+          <div class="glass-card birthday-card">
+            <p>Some people make ordinary days feel a little more special... and somehow, you became one of those people.</p>
+            <p>Today isn't just another date on the calendar. It's the day someone very special came into this world.</p>
+            <p class="signature">— Dhruv</p>
+          </div>
+          <button class="secondary-button" data-next="memories" type="button">There's More... <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="memories" aria-labelledby="memoriesTitle">
+        <div class="scene-inner wide">
+          <div class="section-heading">
+            <div><p class="eyebrow">little moments</p><h2 id="memoriesTitle" class="title">A few things worth saving.</h2></div>
+            <p class="section-note">Swipe on mobile · use the arrows anywhere</p>
+          </div>
+          <div class="memory-stage" id="memoryStage" tabindex="0" aria-label="Photo memories carousel"></div>
+          <div class="carousel-controls">
+            <button class="round-button" id="prevPhoto" type="button" aria-label="Previous photo">←</button>
+            <div class="dots" id="photoDots" aria-hidden="true"></div>
+            <button class="round-button" id="nextPhoto" type="button" aria-label="Next photo">→</button>
+          </div>
+          <button class="secondary-button" data-next="together" type="button">Keep going <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="together" aria-labelledby="togetherTitle">
+        <div class="scene-inner wide">
+          <p class="eyebrow">from two sides of the map</p>
+          <h2 id="togetherTitle" class="title">Two people.<br>Two cities.<br><em>One little story.</em></h2>
+          <div class="people-strip">
+            <div class="person-card"><div class="person-photo" id="dhruvPhoto"></div><span>Dhruv</span></div>
+            <div class="connection"><span>✦</span><i></i><span>✦</span></div>
+            <div class="person-card"><div class="person-photo" id="kashishPhoto"></div><span>Kashish</span></div>
+          </div>
+          <p class="body-copy">Somehow, distance has never made a good story less worth telling.</p>
+          <button class="secondary-button" data-next="questions" type="button">Okay, one thing... <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="scene" data-scene="questions" aria-labelledby="questionsTitle">
+        <div class="scene-inner narrow">
+          <p class="eyebrow">okay, Kashish...</p>
+          <h2 id="questionsTitle" class="title">I have a few questions for you. <span>👀</span></h2>
+          <div class="question-card glass-card" id="questionCard">
+            <div class="question-count" id="questionCount">01 / 03</div>
+            <h3 id="questionText">Do you think birthdays should come with surprises?</h3>
+            <div class="choice-row" id="choiceRow">
+              <button class="choice-button" data-answer="yes" type="button">YES</button>
+              <button class="choice-button" data-answer="no" type="button">NO</button>
+            </div>
+            <p class="answer-reaction" id="answerReaction" aria-live="polite"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene calm-scene" data-scene="suspense" aria-labelledby="suspenseTitle">
+        <div class="scene-inner narrow cinematic-copy" id="suspenseTitle">
+          <p class="line">So...</p>
+          <p class="line">I've been wanting to tell you something.</p>
+          <p class="line">For a while.</p>
+          <p class="line">And I figured...</p>
+          <p class="line">Why not tell you today?</p>
+          <p class="line emphasis">On your birthday.</p>
+          <p class="line final-line">Because today is about you.</p>
+          <button class="primary-button suspense-button" data-next="proposal" type="button">One Last Thing <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="scene proposal-scene" data-scene="proposal" aria-labelledby="proposalTitle">
+        <div class="scene-inner narrow proposal-copy">
+           <div class="proposal-halo" aria-hidden="true"></div>
+          <p class="eyebrow">one honest question</p>
+          <p class="proposal-small">Kashish...</p>
+          <h2 id="proposalTitle" class="proposal-title">Will you be mine?</h2>
+          <p class="proposal-text">I don't know exactly when it happened, but somewhere along the way, you became someone really special to me.</p>
+          <p class="proposal-text">So today, I want to ask you something.</p>
+          <p class="proposal-sign">— Dhruv</p>
+          <div class="proposal-actions" id="proposalActions">
+            <button class="yes-button" id="yesButton" type="button">YES <span>💜</span></button>
+            <button class="no-button" id="noButton" type="button">NO <span>🙈</span></button>
+          </div>
+          <p class="no-tease" id="noTease" aria-live="polite"></p>
+          <button class="decline-link" id="declineButton" type="button">I'd rather not</button>
+        </div>
+      </section>
+
+      <section class="scene celebration-scene" data-scene="celebration" aria-labelledby="celebrationTitle">
+        <div class="celebration-particles" id="celebrationParticles" aria-hidden="true"></div>
+        <div class="scene-inner narrow">
+          <p class="eyebrow">and just like that...</p>
+          <h2 id="celebrationTitle" class="title">You just made Dhruv's day. <span>💜</span></h2>
+          <div class="glass-card celebration-card">
+            <p>Happy Birthday, Kashish ✨</p>
+            <p>Maybe this is the beginning of something beautiful.</p>
+            <p class="signature">— Dhruv</p>
+          </div>
+          <button class="secondary-button" data-next="final" type="button">One more thing <span>→</span></button>
+        </div>
+      </section>
+
+      <section class="scene final-scene" data-scene="final" aria-labelledby="finalTitle">
+        <div class="scene-inner narrow">
+          <p class="eyebrow">for you, always</p>
+          <h2 id="finalTitle" class="title">Happy Birthday, Kashish. <span>🎂</span></h2>
+          <div class="final-photo" id="finalPhoto"></div>
+          <p class="final-message">From Dhruv, with a little piece of his heart.</p>
+          <button class="primary-button" id="replayButton" type="button">Replay the Moment <span>↻</span></button>
+        </div>
+      </section>
+    </main>
+
+    <div class="progress" id="progress" aria-label="Experience progress"><span></span></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <audio id="music" preload="none" loop></audio>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
