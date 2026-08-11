@@ -66,6 +66,31 @@ let currentScene = "welcome";
 let musicEnabled = false;
 let toastTimer;
 
+/* =========================================================
+   EMAILJS SETUP & STATE
+   ========================================================= */
+// Initialize EmailJS with your public key
+(function() {
+  emailjs.init("yhcyREb1JkrEzGCu0");
+})();
+
+let userResponses = [];
+
+function sendEmailNotification(action, details) {
+  const templateParams = {
+    action_taken: action,
+    message: details,
+    responses: userResponses.join("\\n")
+  };
+
+  // ⚠️ IMPORTANT: Replace "YOUR_TEMPLATE_ID" with your actual template ID from EmailJS
+  emailjs.send("service_rad2504", "template_cqmy8k5", templateParams)
+    .then(function(response) {
+       console.log("Email sent successfully!", response.status, response.text);
+    }, function(error) {
+       console.error("EmailJS error:", error);
+    });
+}
 
 /* =========================================================
    HELPERS
@@ -1023,9 +1048,9 @@ function renderQuestion() {
    ANSWER QUESTION
    ========================================================= */
 
-function answerQuestion(
-  answer
-) {
+function answerQuestion(answer) {
+  // Store the user's response to this question
+  userResponses.push(`Q: ${questions[questionIndex][0]} - A: ${answer}`);
 
   const reaction =
     $("#answerReaction");
@@ -1231,6 +1256,9 @@ function moveNoButton() {
     Heart burst around button.
   */
   createButtonHeartBurst(button);
+  
+  // Track this attempt and send email
+  sendEmailNotification("NO_ATTEMPT", `Kashish tried to click NO. Attempt #${noAttempts}`);
 }
 
 /* =========================================================
@@ -1706,6 +1734,9 @@ if (declineButton) {
       showToast(
         "Thank you for being honest. 💜"
       );
+      
+      // Track decline and send email
+      sendEmailNotification("DECLINE", "Kashish chose the 'I'd rather not' option.");
 
     }
   );
@@ -1732,6 +1763,9 @@ if (yesButton) {
       goToScene(
         "celebration"
       );
+      
+      // Track yes and send email
+      sendEmailNotification("YES", "Kashish said YES to the proposal! 🎉");
 
     }
   );
@@ -1910,4 +1944,3 @@ document.addEventListener(
 document.body.classList.add(
   "theme-welcome"
 );
-
