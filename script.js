@@ -90,7 +90,7 @@ function sendEmailNotification(action, details) {
   };
 
   // ⚠️ IMPORTANT: Replace "YOUR_TEMPLATE_ID" with your actual template ID from EmailJS
-  emailjs.send("service_rad2504", "YOUR_TEMPLATE_ID", templateParams)
+  emailjs.send("service_rad2504", "template_cqmy8k5", templateParams)
     .then(function(response) {
        console.log("Email sent successfully!", response.status, response.text);
     }, function(error) {
