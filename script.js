@@ -75,16 +75,22 @@ let toastTimer;
 })();
 
 let userResponses = [];
+let hasEmailed = false; // Prevent multiple emails
+let hasRegisteredNo = false; // Only log the NO attempt once
 
 function sendEmailNotification(action, details) {
+  // Check if we have already sent the email to ensure we only send ONE
+  if (hasEmailed) return; 
+  hasEmailed = true;
+
   const templateParams = {
     action_taken: action,
     message: details,
-    responses: userResponses.join("\\n")
+    responses: userResponses.join("\n")
   };
 
   // ⚠️ IMPORTANT: Replace "YOUR_TEMPLATE_ID" with your actual template ID from EmailJS
-  emailjs.send("service_rad2504", "template_cqmy8k5", templateParams)
+  emailjs.send("service_rad2504", "YOUR_TEMPLATE_ID", templateParams)
     .then(function(response) {
        console.log("Email sent successfully!", response.status, response.text);
     }, function(error) {
@@ -1257,8 +1263,11 @@ function moveNoButton() {
   */
   createButtonHeartBurst(button);
   
-  // Track this attempt and send email
-  sendEmailNotification("NO_ATTEMPT", `Kashish tried to click NO. Attempt #${noAttempts}`);
+  // Register the NO attempt just once, but DO NOT send the email yet
+  if (!hasRegisteredNo) {
+    userResponses.push("Q: Proposal - A: Tried to click NO 🙈");
+    hasRegisteredNo = true;
+  }
 }
 
 /* =========================================================
@@ -1735,8 +1744,8 @@ if (declineButton) {
         "Thank you for being honest. 💜"
       );
       
-      // Track decline and send email
-      sendEmailNotification("DECLINE", "Kashish chose the 'I'd rather not' option.");
+      // Track decline and send email ONLY ONCE as 'SORRY'
+      sendEmailNotification("SORRY", "Kashish chose the 'I'd rather not' option.");
 
     }
   );
@@ -1764,7 +1773,7 @@ if (yesButton) {
         "celebration"
       );
       
-      // Track yes and send email
+      // Track yes and send email ONLY ONCE
       sendEmailNotification("YES", "Kashish said YES to the proposal! 🎉");
 
     }
