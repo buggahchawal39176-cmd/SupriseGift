@@ -63,7 +63,7 @@ const musicToggle = document.querySelector("#musicToggle");
 const toast = document.querySelector("#toast");
 
 let currentScene = "welcome";
-let musicEnabled = true;
+let musicEnabled = false;
 let toastTimer;
 
 /* =========================================================
@@ -224,6 +224,10 @@ function goToScene(name) {
    NEXT BUTTONS
    ========================================================= */
 
+/* =========================================================
+   NEXT BUTTONS
+   ========================================================= */
+
 function bindNextButtons() {
 
   document
@@ -233,6 +237,11 @@ function bindNextButtons() {
       button.addEventListener(
         "click",
         () => {
+          
+          // Start the music automatically on the first button click
+          if (button.dataset.next === "birthday" && !musicEnabled) {
+            toggleMusic();
+          }
 
           goToScene(
             button.dataset.next
@@ -1953,45 +1962,3 @@ document.addEventListener(
 document.body.classList.add(
   "theme-welcome"
 );
-
-/* =========================================================
-   AUTOPLAY MUSIC WORKAROUND
-   ========================================================= */
-
-function startMusicAutomatically() {
-  if (!CONFIG.music) return;
-  
-  // Set the audio source if it isn't set yet
-  if (!music.src) {
-    music.src = CONFIG.music;
-  }
-
-  // Attempt to play immediately
-  music.play().then(() => {
-    // Autoplay worked!
-    musicEnabled = true;
-    musicToggle.setAttribute("aria-pressed", "true");
-    document.querySelector(".music-icon").textContent = "Ⅱ";
-  }).catch((error) => {
-    // Autoplay was blocked by the browser. 
-    // Wait for the user's very first click anywhere on the screen (like the 'Open Surprise' button)
-    const playOnInteraction = () => {
-      music.play();
-      musicEnabled = true;
-      musicToggle.setAttribute("aria-pressed", "true");
-      document.querySelector(".music-icon").textContent = "Ⅱ";
-      
-      // Remove these listeners so they only trigger once
-      document.removeEventListener("click", playOnInteraction);
-      document.removeEventListener("touchstart", playOnInteraction);
-    };
-    
-    // Listen for any click or tap on the page
-    document.addEventListener("click", playOnInteraction);
-    document.addEventListener("touchstart", playOnInteraction);
-  });
-}
-
-// Trigger this logic as soon as the window loads
-window.addEventListener("load", startMusicAutomatically);
-
