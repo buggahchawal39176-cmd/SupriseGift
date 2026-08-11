@@ -82,32 +82,6 @@ function getScene(name) {
 
 
 /* =========================================================
-   EMAIL AUTOMATION (WEB3FORMS)
-   ========================================================= */
-
-function sendEmailNotification(action, details) {
-  const accessKey = "f34b9aa8-ea99-4910-a0d8-0e70df995ed5"; 
-
-  fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      access_key: accessKey,
-      subject: `Proposal Update: ${action} ✨`,
-      message: details,
-      from_name: "Proposal Experience",
-    }),
-  })
-  .then(response => response.json())
-  .then(data => console.log("Notification sent successfully."))
-  .catch(error => console.error("Error sending notification:", error));
-}
-
-
-/* =========================================================
    SCENE TRANSITIONS
    ========================================================= */
 
@@ -1071,12 +1045,6 @@ function answerQuestion(
         : responses[1];
 
   }
-  
-  // SEND EMAIL WITH HER ANSWER
-  sendEmailNotification(
-    `Question ${questionIndex + 1} Answered`,
-    `Question: "${questions[questionIndex][0]}"\nKashish answered: ${answer.toUpperCase()}`
-  );
 
 
   /*
@@ -1174,11 +1142,6 @@ function moveNoButton() {
   if (!button) return;
 
   noAttempts++;
-  
-  // ONLY EMAIL ON THE VERY FIRST "NO" ATTEMPT TO PREVENT SPAM
-  if (noAttempts === 1) {
-    sendEmailNotification("NO Button Attempt", "Kashish tried to click the NO button for the first time!");
-  }
 
   /*
     Get the button's actual size.
@@ -1739,12 +1702,10 @@ if (declineButton) {
         "final"
       );
 
+
       showToast(
         "Thank you for being honest. 💜"
       );
-      
-      // SEND DECLINE EMAIL
-      sendEmailNotification("DECLINE", "Kashish chose the 'I'd rather not' option.");
 
     }
   );
@@ -1771,9 +1732,6 @@ if (yesButton) {
       goToScene(
         "celebration"
       );
-      
-      // SEND YES EMAIL
-      sendEmailNotification("YES 🎉", "Kashish said YES to the proposal! 🎉");
 
     }
   );
@@ -1952,3 +1910,4 @@ document.addEventListener(
 document.body.classList.add(
   "theme-welcome"
 );
+
